@@ -23,6 +23,5 @@ This script `era5_surface_data_acquisition.py` facilitates the automated downloa
 1. Ensure you have the `cdsapi` library installed:
    ```bash
    pip install cdsapi
-   bash
-   ```
+   
    further information of [`cdsapi`](https://cds.climate.copernicus.eu/how-to-api) can be found in 
