@@ -2,10 +2,12 @@
 # The provided Python script automates the download of specific meteorological variables 
 # lsfrom the Copernicus Climate Data Store (CDS) using the cdsapi library.
 import cdsapi
+import os
 
 # Define the directory path
-directory_path = "~/storage/weatherProject/datasets/ERA5"
-
+directory_path = "/home/vvatellis/storage/weatherProject/datasets/ERA5"
+# Change to a new directory
+os.chdir(directory_path)
 
 dataset = "reanalysis-era5-single-levels"
 client = cdsapi.Client()
@@ -64,6 +66,6 @@ for variable in variables:
             "area": [50.5, 5, 47.5, 10]
         }
 
-        target = f"{directory_path}/{variable}_Y{year}.nc"
+        target = f"{variable}_Y{year}.nc"
         client.retrieve(dataset, request, target)
         print(f"Downloaded data for {year}")

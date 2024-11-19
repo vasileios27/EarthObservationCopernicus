@@ -25,3 +25,18 @@ This script `era5_surface_data_acquisition.py` facilitates the automated downloa
    pip install cdsapi
    ```
    further information of [`cdsapi`](https://cds.climate.copernicus.eu/how-to-api) can be found in 
+
+
+## ERA5 Data Interpolation Script
+This repository contains a Python script designed to perform spatial interpolation on ERA5 reanalysis data, specifically focusing on the swvl1 variable, which represents volumetric soil water in the first layer. The script enhances the spatial resolution of the data by interpolating it onto a finer grid, facilitating more detailed analysis.
+
+### Features
+Data Loading: Utilizes the xarray library to load ERA5 NetCDF datasets.
+Spatial Interpolation: Employs scipy's RegularGridInterpolator to interpolate data onto a finer grid with 0.1-degree intervals.
+Data Saving: Saves the interpolated data as NetCDF files for subsequent analysis.
+Prerequisites
+Ensure the following Python libraries are installed:
+
+ - xarray
+ - numpy
+ - scipy

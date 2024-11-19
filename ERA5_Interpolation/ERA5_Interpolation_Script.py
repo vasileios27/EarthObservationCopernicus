@@ -2,11 +2,20 @@
 
 import xarray as xr
 import numpy as np
+import os
 from scipy.interpolate import RegularGridInterpolator
 
 #Replace "path_era5_data" with the actual path to your NetCDF file.
 path_era5_data = "~/storage/weatherProject/datasets/ERA5ttu/ERA5/nc_SURFACE/data_stream-oper.nc"
 ds = xr.open_dataset(path_era5_data)
+
+# Define the directory path
+directory_path = "~/storage/weatherProject/datasets/ERA5ttu/ERA5/nc_SURFACE/Interpolated/"
+# Check if the directory exists
+if not os.path.exists(directory_path):
+    # Create the directory
+    os.makedirs(directory_path)
+    print(f"Directory '{directory_path}' created.")
 
 varibale_name = 'swvl1'
 
@@ -46,6 +55,6 @@ for time in ds.valid_time:
 
     #break
 interpolated_ds = xr.concat(interpolated_data, dim='valid_time')
-interpolated_ds.to_netcdf(f'interpolated_era5_data_{varibale_name}.nc')
+interpolated_ds.to_netcdf(f'{directory_path}/interpolated_era5_data_{varibale_name}.nc')
 
 print(f'Variable: {varibale_name}\nstarting time: {ds.valid_time[0].item()} (yyyy/mm/dd/hour)\nfinal time: {ds.valid_time[-1].item()} (yyyy/mm/dd/hour)')
