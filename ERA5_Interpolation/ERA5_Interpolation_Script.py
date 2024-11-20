@@ -69,5 +69,5 @@ for file in files:
     interpolated_ds = xr.concat(interpolated_data, dim='valid_time')
     interpolated_ds.to_netcdf(f'{directory_path}/interpolated_{file}')
 
-    print(f'Variable: {variable_name}\nstarting time: {ds.valid_time[0].item()} (yyyy/mm/dd/hour)\nfinal time: {ds.valid_time[-1].item()} (yyyy/mm/dd/hour)')
+    print(f'Variable: {variable_name}\nstarting time: {ds.valid_time.values[0]} (yyyy/mm/dd/hour)\nfinal time: {ds.valid_time.values[-1]} (yyyy/mm/dd/hour)')
     print(f'Data saved at: {directory_path}/interpolated_{file} \n')
