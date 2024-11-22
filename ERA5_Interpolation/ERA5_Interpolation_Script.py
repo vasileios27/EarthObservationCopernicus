@@ -6,7 +6,7 @@ import os
 from scipy.interpolate import RegularGridInterpolator
 
 #Replace "path_era5_data" with the actual path to your NetCDF file.
-path_era5_data = "/home/vvatellis/storage/weatherProject/datasets/ERA5/reanalysis-era5-single-levels/"
+path_era5_data = "/home/vvatellis/storage/weatherProject/datasets/ERA5/reanalysis-era5-single-levels"
 
 all_entries = os.listdir(path_era5_data)
 files = [entry for entry in all_entries if os.path.isfile(os.path.join(path_era5_data, entry))]

@@ -19,11 +19,11 @@ client = cdsapi.Client()
 years = [1990,2010]
 months = ["06", "07", "08"]
 variables= [ 
-        "volumetric_soil_water_layer_1",
-        "volumetric_soil_water_layer_2",
-        "volumetric_soil_water_layer_3",
-        "volumetric_soil_water_layer_4",
-        "convective_available_potential_energy", 
+        # "volumetric_soil_water_layer_1",
+        # "volumetric_soil_water_layer_2",
+        # "volumetric_soil_water_layer_3",
+        # "volumetric_soil_water_layer_4",
+        # "convective_available_potential_energy", 
         "convective_inhibition",
         "k_index","total_column_water_vapour",
         "10m_u_component_of_wind",
