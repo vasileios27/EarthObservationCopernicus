@@ -90,6 +90,14 @@ This script is designed to download these variables over specified years, months
 - **CDS API Documentation**:  
   [CDS API How-To](https://cds.climate.copernicus.eu/api-how-to)
 
-## License
+
+
+# Data Manipulation and Preprocessing Techniques
+
+This script `mainGR.py` extracts from the clobe NetCDF file the region of Greece and merges all Greece-specific NetCDF files into one dataset, removes any data corresponding to 19:00 (to eliminate an extra hour mistakenly downloaded), and saves the cleaned dataset as a new NetCDF file. It uses xarray’s multi-file dataset opening (open_mfdataset) with coordinate-based merging and the dt accessor for time filtering.
+
+
+
+# License
 
 Include your preferred license here (e.g., MIT License).
