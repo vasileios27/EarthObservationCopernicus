@@ -46,7 +46,7 @@ def merge_and_filter_nc(data_dir, file_pattern="GR_*.nc", filter_hour=19, output
     
     # Filter out the time steps where the hour equals filter_hour.
     # The dt.hour accessor extracts the hour from the time coordinate.
-    filtered_ds = merged_ds.sel(time=merged_ds.time.dt.hour != filter_hour)
+    filtered_ds = merged_ds.sel(valid_time=merged_ds.valid_time.dt.hour != filter_hour)
     
     # Build the full output path.
     output_path = os.path.join(data_dir, output_filename)
@@ -128,7 +128,6 @@ def extract_zip_files(data_dir, extract_dir):
             print(f"Completed processing of {zip_file}.\n")
 
 
-
 def process_netcdf_files(extract_dir, output_dir, lat_min, lat_max, lon_min, lon_max):
     """
     Processes extracted NetCDF files by subsetting the data to a specified geographic region and saving the results.
@@ -137,6 +136,7 @@ def process_netcdf_files(extract_dir, output_dir, lat_min, lat_max, lon_min, lon
       - Loads the NetCDF file using xarray.
       - Subsets the dataset using the provided latitude and longitude boundaries.
       - Generates an output filename with a prefix (e.g., "GR_") to indicate that the file contains data for a specific region.
+      - Checks if the processed file already exists in 'output_dir'. If it does, skips processing for that file.
       - Saves the subsetted dataset to the 'output_dir'.
     
     Parameters:
@@ -153,6 +153,14 @@ def process_netcdf_files(extract_dir, output_dir, lat_min, lat_max, lon_min, lon
     # Iterate over all files in the extraction directory.
     for file in os.listdir(extract_dir):
         if file.endswith(".nc"):  # Process only NetCDF files.
+            output_filename = f"GR_{file}"
+            output_path = os.path.join(output_dir, output_filename)
+            
+            # Check if the file has already been processed.
+            if os.path.exists(output_path):
+                print(f"File {output_filename} already processed, skipping.")
+                continue
+            
             file_path = os.path.join(extract_dir, file)
             
             # Load the dataset with xarray.
@@ -161,10 +169,6 @@ def process_netcdf_files(extract_dir, output_dir, lat_min, lat_max, lon_min, lon
             # Subset the dataset using the provided coordinate boundaries.
             # Note: The order of latitude slicing (lat_max, lat_min) depends on how the data is ordered.
             ds_region = ds.sel(latitude=slice(lat_max, lat_min), longitude=slice(lon_min, lon_max))
-            
-            # Generate output file name by prefixing with "GR_" to indicate the country/region.
-            output_filename = f"GR_{file}"
-            output_path = os.path.join(output_dir, output_filename)
             
             # Save the subsetted dataset to a new NetCDF file.
             ds_region.to_netcdf(output_path)
